@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
@@ -13,4 +13,25 @@ model User {
   fullName String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  memberships WorkspaceMemberships[]
+}
+
+model Workspace {
+  id String @id
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships WorkspaceMemberships[]
+}
+
+model WorkspaceMemberships {
+  userId String
+  workspaceId String
+  user User @relation(fields: [userId], references: [id])
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@id([userId, workspaceId])
 }

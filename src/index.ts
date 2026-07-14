@@ -1,8 +1,8 @@
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../generated/prisma/client.ts";
+import { PrismaClient } from "../generated/prisma/index.js";
 import { DatabaseConfiguration } from "@matterchat/config";
 
-export * from "../generated/prisma/client.ts";
+export * from "../generated/prisma/index.js";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;

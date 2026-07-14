@@ -6,13 +6,14 @@
   "types": "./src/index.ts",
   "scripts": {
     "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev"
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@matterchat/config": "workspace:*",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
-    "dotenv": "^17.4.2",
-    "@matterchat/config": "workspace:*"
+    "dotenv": "^17.4.2"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",

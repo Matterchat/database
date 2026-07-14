@@ -24,14 +24,31 @@ model Workspace {
   updatedAt DateTime @updatedAt
 
   memberships WorkspaceMemberships[]
+  channels Channel[]
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
 }
 
 model WorkspaceMemberships {
   userId String
   workspaceId String
+  role WorkspaceRole @default(MEMBER)
   user User @relation(fields: [userId], references: [id])
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   createdAt DateTime @default(now())
 
   @@id([userId, workspaceId])
+}
+
+model Channel {
+  id String @id
+  name String
+  workspaceId String
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

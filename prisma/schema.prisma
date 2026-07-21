@@ -28,6 +28,7 @@ model Workspace {
   memberships WorkspaceMemberships[]
   channels Channel[]
   invites Invite[]
+  offices Office[]
 }
 
 enum WorkspaceRole {
@@ -40,8 +41,10 @@ model WorkspaceMemberships {
   userId String
   workspaceId String
   role WorkspaceRole @default(MEMBER)
+
   user User @relation(fields: [userId], references: [id])
   workspace Workspace @relation(fields: [workspaceId], references: [id])
+
   createdAt DateTime @default(now())
 
   @@id([userId, workspaceId])
@@ -51,7 +54,9 @@ model Channel {
   id String @id @default(ulid())
   name String
   workspaceId String
+
   workspace Workspace @relation(fields: [workspaceId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -63,8 +68,10 @@ model Message {
   content String
   channelId String
   userId String
+
   channel Channel @relation(fields: [channelId], references: [id])
   user User @relation(fields: [userId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -77,4 +84,15 @@ model Invite {
 
   workspace Workspace @relation(fields: [workspaceId], references: [id])
   creator User @relation(fields: [creatorId], references: [id])
+}
+
+model Office {
+  id String @id @default(ulid())
+  name String
+  workspaceId String
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

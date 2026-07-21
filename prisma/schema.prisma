@@ -16,6 +16,7 @@ model User {
 
   memberships WorkspaceMemberships[]
   messages Message[]
+  invites Invite[]
 }
 
 model Workspace {
@@ -26,6 +27,7 @@ model Workspace {
 
   memberships WorkspaceMemberships[]
   channels Channel[]
+  invites Invite[]
 }
 
 enum WorkspaceRole {
@@ -65,4 +67,14 @@ model Message {
   user User @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Invite {
+  id String @id @default(ulid())
+  workspaceId String
+  creatorId String
+  createdAt DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  creator User @relation(fields: [creatorId], references: [id])
 }
